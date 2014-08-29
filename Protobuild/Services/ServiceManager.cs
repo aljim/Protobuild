@@ -148,6 +148,12 @@
 
                 foreach (var require in service.Requires)
                 {
+                    if (!lookup.ContainsKey(require)) 
+                    {
+                        throw new InvalidOperationException(
+                            service.FullName + " requires " + require + ", but it could not be found.");
+                    }
+
                     if (!lookup[require].IsEnabled)
                     {
                         lookup[require].IsEnabled = true;
